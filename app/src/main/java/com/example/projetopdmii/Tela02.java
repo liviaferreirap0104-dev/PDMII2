@@ -18,7 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, Runnable {
+public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener, Runnable, View.OnClickListener {
     private Toolbar toolbar;
     private MediaPlayer mediaPlayer;
     private SeekBar seekBar;
@@ -47,6 +47,12 @@ public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletio
         seekBar.setOnSeekBarChangeListener(this);
         handler = new Handler();
 
+        b = findViewById(R.id.button3);
+        b.setOnClickListener(this);
+        flag = false;
+        musica = R.raw.forrodofarol_quincasmoreira;
+
+
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -55,7 +61,7 @@ public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletio
         }
         if(id == R.id.id001){
             if(mediaPlayer == null){
-                mediaPlayer = MediaPlayer.create(this, R.raw.forrodofarol_quincasmoreira);
+                mediaPlayer = MediaPlayer.create(this,musica);
                 mediaPlayer.setOnCompletionListener(this);
                 seekBar.setMax(mediaPlayer.getDuration());
                 handler.post(this);
@@ -113,5 +119,19 @@ public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletio
             seekBar.setProgress(mediaPlayer.getCurrentPosition());
             handler.postDelayed(this, 1000);
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        //ação veio do botão
+        if(view == b){
+             if(!flag){
+                 musica = R.raw.forrodofarol_quincasmoreira;
+                 flag = true;
+             }else {
+                 musica = R.raw.havana;
+                 flag = false;
+             }
+         }
     }
 }
