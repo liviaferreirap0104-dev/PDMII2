@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletio
     private ArrayList<Playlist> lista;
     private CardView card1, card2, card3, card4, card5;
     private TextView textoMusicaSelecionada, textoMusicaTocando;
+    private ImageView imgPreview, imgNext;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -74,6 +76,12 @@ public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletio
         textoMusicaSelecionada = findViewById(R.id.textView);
         textoMusicaTocando = findViewById(R.id.textView2);
 
+        imgPreview = findViewById(R.id.imageView);
+        imgPreview.setOnClickListener(this);
+        imgNext = findViewById(R.id.imageView2);
+        imgNext.setOnClickListener(this);
+
+
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -81,23 +89,10 @@ public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletio
             finish();
         }
         if(id == R.id.id001){
-            if(mediaPlayer == null){
-                mediaPlayer = MediaPlayer.create(this,musica);
-                textoMusicaTocando.setText("Música Tocando:" + lista.get(indiceLista).getNome());
-                mediaPlayer.setOnCompletionListener(this);
-                seekBar.setMax(mediaPlayer.getDuration());
-                handler.post(this);
-                mediaPlayer.start();
-            }else if(!mediaPlayer.isPlaying()){
-                mediaPlayer.start();
-            }
+           play();
         }
         if(id == R.id.id003){
-            if(mediaPlayer != null){
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer=null;
-            }
+            stop();
         }
         if(id == R.id.id002){
             if(mediaPlayer!=null && mediaPlayer.isPlaying()){
@@ -114,9 +109,17 @@ public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletio
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
+        handler.removeCallbacks(this);
         mediaPlayer.release();
-        mediaPlayer = null;
+        this.mediaPlayer = null;
         seekBar.setProgress(0);
+        indiceLista++;
+        if(indiceLista >= lista.size()){
+            indiceLista = 0;
+        }
+        textoMusicaSelecionada.setText("Música Selecionada" + lista.get(indiceLista).getNome());
+        stop();
+        play();
     }
 
     @Override
@@ -175,6 +178,37 @@ public class Tela02 extends AppCompatActivity implements MediaPlayer.OnCompletio
             musica = lista.get(indiceLista).getMusica();
 
         }
+        if(view == imgPreview){
+            indiceLista++;
+            if(indiceLista >= lista.size()){
+                indiceLista = 0;
+            }
+            textoMusicaSelecionada.setText("Música Selecionada" + lista.get(indiceLista).getNome());
+            stop();
+            play();
+        }
+        if(view == imgNext){
 
+        }
+
+    }
+    public void play(){
+        if(mediaPlayer == null){
+            mediaPlayer = MediaPlayer.create(this,lista.get(indiceLista).getMusica());
+            textoMusicaTocando.setText("Música Tocando:" + lista.get(indiceLista).getNome());
+            mediaPlayer.setOnCompletionListener(this);
+            seekBar.setMax(mediaPlayer.getDuration());
+            handler.post(this);
+            mediaPlayer.start();
+        }else if(!mediaPlayer.isPlaying()){
+            mediaPlayer.start();
+        }
+    }
+    public void stop(){
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer=null;
+        }
     }
 }
