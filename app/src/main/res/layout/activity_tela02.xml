@@ -27,21 +27,21 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.33"
-            android:text="TextView" />
+            android:layout_weight="0.10"
+            android:text="00:00" />
 
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.66" />
+            android:layout_weight="0.80" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.33"
-            android:text="TextView" />
+            android:layout_weight="0.10"
+            android:text="00:00" />
 
     </LinearLayout>
 
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:background="#673AB7"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/mcdavi" />
+                    app:srcCompat="@drawable/mcph" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
