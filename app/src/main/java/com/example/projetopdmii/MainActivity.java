@@ -30,6 +30,6 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     }
     @Override
     public void run() {
-        startActivity(new Intent(this, Tela02.class));
+        startActivity(new Intent(this, Tela03.class));
     }
 }
