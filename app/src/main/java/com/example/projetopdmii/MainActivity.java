@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
             return insets;
         });
        handler = new Handler();
-       handler.postDelayed(this, 2000);
+       handler.postDelayed(this, 1000);
     }
     @Override
     public void run() {

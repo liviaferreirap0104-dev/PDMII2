@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:backgroundTint="#E73636"
+        android:layout_weight="0.6"
+        android:backgroundTint="#430000"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="20dp">
 
@@ -25,13 +26,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="TextView"
-                android:textSize="20sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="34sp" />
 
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:srcCompat="@drawable/tulipa" />
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/tomioka" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>
