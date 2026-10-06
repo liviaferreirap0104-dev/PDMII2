@@ -25,7 +25,7 @@ public class Tela03 extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tela03);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.idDrawer), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -41,8 +41,13 @@ public class Tela03 extends AppCompatActivity implements View.OnClickListener {
         lista.add(new Slide("Inosuke Hashibira", R.drawable.inosuke, "Inosuke Hashibira é um dos protagonistas. Ele é impulsivo, competitivo e muito corajoso, sempre procurando enfrentar adversários fortes. Usa a Respiração da Fera e luta com duas espadas de lâminas serrilhadas. Apesar de seu jeito agressivo e cabeça-dura, Inosuke também é leal, divertido e se importa muito com seus amigos."));
         lista.add(new Slide("Kyojuro Rengoku", R.drawable.rengoku, "Kyojuro Rengoku é o Hashira das Chamas. Ele é conhecido por sua personalidade alegre, determinada e extremamente corajosa. Utiliza a Respiração das Chamas, sendo um espadachim muito habilidoso e poderoso. Rengoku valoriza a vida e acredita que os mais fortes devem proteger os mais fracos. Ele também é leal, carismático e possui um forte senso de justiça."));
         SlideAdapter adapter = new SlideAdapter(lista, texto);
-        viewPager.setAdapter(adapter);
-
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                texto.setText(lista.get(position).getTexto());
+            }
+        });
     }
 
     @Override
